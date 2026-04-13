@@ -6,6 +6,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
+*.tar.gz
+*.whl
 dist/
 build/
 
