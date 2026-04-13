@@ -1,7 +1,7 @@
-# Keysmith demo script
-# Run with: python3 keysmith.py run example.txt
+# Typesmith demo script
+# Run with: python3 typesmith.py run example.txt
 
-echo "Hello from Keysmith!"
+echo "Hello from Typesmith!"
 
 #speed 15
 ls -la

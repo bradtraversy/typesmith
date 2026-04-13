@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Keysmith - Terminal auto-typer for tutorial recording."""
+"""Typesmith - Terminal auto-typer for tutorial recording."""
 
 import argparse
 import os
@@ -178,7 +178,7 @@ def run_interactive(speed, variance, execute, prompt_str):
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="keysmith",
+        prog="typesmith",
         description="Terminal auto-typer for tutorial recording.",
     )
     parser.add_argument(

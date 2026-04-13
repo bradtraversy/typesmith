@@ -1,6 +1,6 @@
-# Keysmith
+# Typesmith
 
-A terminal auto-typer for recording tutorials, demos, and videos. Keysmith simulates natural human typing in your terminal — character by character with realistic variable speed — so your recordings look like someone is actually typing, not pasting.
+A terminal auto-typer for recording tutorials, demos, and videos. Typesmith simulates natural human typing in your terminal — character by character with realistic variable speed — so your recordings look like someone is actually typing, not pasting.
 
 Commands are executed by default, so you get real output just like a live terminal session.
 
@@ -23,13 +23,13 @@ Commands are executed by default, so you get real output just like a live termin
 ```bash
 # Clone and run — no install needed
 git clone <repo-url>
-cd keysmith
+cd typesmith
 
 # Interactive mode — type commands, watch them get re-typed
-python3 keysmith.py
+python3 typesmith.py
 
 # Script mode — step through pre-written commands
-python3 keysmith.py run example.txt
+python3 typesmith.py run example.txt
 ```
 
 ## Usage
@@ -37,20 +37,20 @@ python3 keysmith.py run example.txt
 ### Interactive Mode
 
 ```bash
-python3 keysmith.py [options]
+python3 typesmith.py [options]
 ```
 
-Launches an interactive session. The screen clears, and you'll see a dim `(input)` prompt. Type or paste a command and press Enter. Keysmith erases your raw input and re-types it character by character with the typing effect, then executes it.
+Launches an interactive session. The screen clears, and you'll see a dim `(input)` prompt. Type or paste a command and press Enter. Typesmith erases your raw input and re-types it character by character with the typing effect, then executes it.
 
 **Example session:**
 
 ```
 (input) echo "Hello, World!"     <-- you type this (gets erased)
-$ echo "Hello, World!"           <-- keysmith re-types this slowly
+$ echo "Hello, World!"           <-- typesmith re-types this slowly
 Hello, World!                    <-- real command output
 (input) ls                       <-- next command
 $ ls                             <-- re-typed
-README.md  keysmith.py  example.txt
+README.md  typesmith.py  example.txt
 ```
 
 You can also enter directives inline during interactive mode:
@@ -66,16 +66,16 @@ Press `Ctrl+C` to exit.
 ### Script Mode
 
 ```bash
-python3 keysmith.py run <script-file> [options]
+python3 typesmith.py run <script-file> [options]
 ```
 
-Loads commands from a script file and plays them back one at a time. The screen clears, and Keysmith waits for you to press **Enter** or **Space** to trigger each command. This is ideal for recording because the keypresses are invisible in the output.
+Loads commands from a script file and plays them back one at a time. The screen clears, and Typesmith waits for you to press **Enter** or **Space** to trigger each command. This is ideal for recording because the keypresses are invisible in the output.
 
 **Example workflow for recording:**
 
 1. Write your commands in a script file
 2. Start your screen recorder (OBS, asciinema, etc.)
-3. Run `python3 keysmith.py run demo.txt`
+3. Run `python3 typesmith.py run demo.txt`
 4. Press Enter to trigger each command — it types naturally and runs
 5. Stop recording
 
@@ -94,19 +94,19 @@ Press `q` or `Ctrl+C` to exit early.
 
 ```bash
 # Slow, deliberate typing
-python3 keysmith.py -s 6
+python3 typesmith.py -s 6
 
 # Fast typing with lots of variation
-python3 keysmith.py -s 20 -v 0.8
+python3 typesmith.py -s 20 -v 0.8
 
 # Custom prompt that looks like zsh
-python3 keysmith.py -p "% "
+python3 typesmith.py -p "% "
 
 # Type commands without executing them
-python3 keysmith.py -X
+python3 typesmith.py -X
 
 # Combine options with script mode
-python3 keysmith.py run demo.txt -s 15 -p ">>> "
+python3 typesmith.py run demo.txt -s 15 -p ">>> "
 ```
 
 ## Script File Format
@@ -155,7 +155,7 @@ Lines starting with `# ` (hash followed by a space) are treated as comments and 
 
 ## How the Typing Simulation Works
 
-Keysmith doesn't just add a fixed delay between characters. It simulates realistic human typing patterns:
+Typesmith doesn't just add a fixed delay between characters. It simulates realistic human typing patterns:
 
 1. **Base delay** — calculated from your speed setting (`1 / speed` seconds per character)
 2. **Gaussian jitter** — each keystroke varies randomly around the base delay, controlled by the variance setting
@@ -173,4 +173,4 @@ The result looks convincingly human, especially at moderate speeds (8-15 cps).
 - **Use `#clear`** to reset the screen between sections
 - **Script mode** is almost always better than interactive for final recordings — you can rehearse and get it right, and there's no risk of typos
 - **Interactive mode** is great for live presentations or quick demos where you want flexibility
-- Start your recording, then launch Keysmith — the screen clear gives you a clean starting frame
+- Start your recording, then launch Typesmith — the screen clear gives you a clean starting frame
