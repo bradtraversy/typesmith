@@ -18,18 +18,24 @@ Commands are executed by default, so you get real output just like a live termin
 - Python 3.6+ (`python3`)
 - Linux or macOS (uses POSIX terminal controls)
 
+## Installation
+
+```bash
+# Install from PyPI
+pip install typesmith
+
+# Or install with pipx (recommended for CLI tools)
+pipx install typesmith
+```
+
 ## Quick Start
 
 ```bash
-# Clone and run — no install needed
-git clone <repo-url>
-cd typesmith
-
 # Interactive mode — type commands, watch them get re-typed
-python3 typesmith.py
+typesmith
 
 # Script mode — step through pre-written commands
-python3 typesmith.py run example.txt
+typesmith run example.txt
 ```
 
 ## Usage
@@ -37,7 +43,7 @@ python3 typesmith.py run example.txt
 ### Interactive Mode
 
 ```bash
-python3 typesmith.py [options]
+typesmith [options]
 ```
 
 Launches an interactive session. The screen clears, and you'll see a dim `(input)` prompt. Type or paste a command and press Enter. Typesmith erases your raw input and re-types it character by character with the typing effect, then executes it.
@@ -66,7 +72,7 @@ Press `Ctrl+C` to exit.
 ### Script Mode
 
 ```bash
-python3 typesmith.py run <script-file> [options]
+typesmith run <script-file> [options]
 ```
 
 Loads commands from a script file and plays them back one at a time. The screen clears, and Typesmith waits for you to press **Enter** or **Space** to trigger each command. This is ideal for recording because the keypresses are invisible in the output.
@@ -75,7 +81,7 @@ Loads commands from a script file and plays them back one at a time. The screen 
 
 1. Write your commands in a script file
 2. Start your screen recorder (OBS, asciinema, etc.)
-3. Run `python3 typesmith.py run demo.txt`
+3. Run `typesmith run demo.txt`
 4. Press Enter to trigger each command — it types naturally and runs
 5. Stop recording
 
@@ -94,19 +100,19 @@ Press `q` or `Ctrl+C` to exit early.
 
 ```bash
 # Slow, deliberate typing
-python3 typesmith.py -s 6
+typesmith -s 6
 
 # Fast typing with lots of variation
-python3 typesmith.py -s 20 -v 0.8
+typesmith -s 20 -v 0.8
 
 # Custom prompt that looks like zsh
-python3 typesmith.py -p "% "
+typesmith -p "% "
 
 # Type commands without executing them
-python3 typesmith.py -X
+typesmith -X
 
 # Combine options with script mode
-python3 typesmith.py run demo.txt -s 15 -p ">>> "
+typesmith run demo.txt -s 15 -p ">>> "
 ```
 
 ## Script File Format
