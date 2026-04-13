@@ -187,9 +187,9 @@ def main():
         help="Base typing speed in characters/sec (default: 12)",
     )
     parser.add_argument(
-        "--no-execute", "-X",
+        "--execute", "-x",
         action="store_true",
-        help="Don't execute commands (display-only mode)",
+        help="Execute commands after typing them",
     )
     parser.add_argument(
         "-p", "--prompt",
@@ -209,7 +209,7 @@ def main():
 
     args = parser.parse_args()
 
-    execute = not args.no_execute
+    execute = args.execute
 
     if args.mode == "run":
         run_script(args.script, args.speed, args.variance, execute, args.prompt)

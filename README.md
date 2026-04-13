@@ -94,7 +94,7 @@ Press `q` or `Ctrl+C` to exit early.
 | `--speed` | `-s` | `12` | Base typing speed in characters per second |
 | `--variance` | `-v` | `0.4` | Speed variance from 0.0 (uniform) to 1.0 (erratic) |
 | `--prompt` | `-p` | `"$ "` | Shell prompt string displayed before each command |
-| `--no-execute` | `-X` | off | Display-only mode — type commands but don't run them |
+| `--execute` | `-x` | off | Execute commands after typing them |
 
 **Examples:**
 
@@ -108,8 +108,8 @@ typesmith -s 20 -v 0.8
 # Custom prompt that looks like zsh
 typesmith -p "% "
 
-# Type commands without executing them
-typesmith -X
+# Execute commands after typing them
+typesmith -x
 
 # Combine options with script mode
 typesmith run demo.txt -s 15 -p ">>> "
