@@ -1,0 +1,17 @@
+# Keysmith demo script
+# Run with: python3 keysmith.py run example.txt
+
+echo "Hello from Keysmith!"
+
+#speed 15
+ls -la
+
+#pause 0.5
+#speed 10
+echo "This line is typed a bit slower..."
+
+#speed 20
+echo "And this one is fast!"
+
+#speed 12
+pwd
