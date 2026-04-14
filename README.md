@@ -2,7 +2,7 @@
 
 A terminal auto-typer for recording tutorials, demos, and videos. Typesmith simulates natural human typing in your terminal — character by character with realistic variable speed — so your recordings look like someone is actually typing, not pasting.
 
-Commands are executed by default, so you get real output just like a live terminal session.
+Commands are display-only by default. Add `--execute` / `-x` to run them for real output.
 
 ## Features
 
