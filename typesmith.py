@@ -206,6 +206,14 @@ def main():
 
     run_parser = subparsers.add_parser("run", help="Run commands from a script file")
     run_parser.add_argument("script", help="Path to script file")
+    run_parser.add_argument("-s", "--speed", type=float, default=12,
+                            help="Base typing speed in characters/sec (default: 12)")
+    run_parser.add_argument("--execute", "-x", action="store_true",
+                            help="Execute commands after typing them")
+    run_parser.add_argument("-p", "--prompt", default="$ ",
+                            help='Shell prompt string (default: "$ ")')
+    run_parser.add_argument("-v", "--variance", type=float, default=0.4,
+                            help="Speed variance 0.0-1.0 (default: 0.4)")
 
     args = parser.parse_args()
 
