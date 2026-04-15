@@ -91,7 +91,7 @@ Press `q` or `Ctrl+C` to exit early.
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--speed` | `-s` | `12` | Base typing speed in characters per second |
+| `--speed` | `-s` | `12` | Base typing speed in characters per second (1-50, where 6-8 is slow/deliberate, 10-15 is natural, 20+ is fast) |
 | `--variance` | `-v` | `0.4` | Speed variance from 0.0 (uniform) to 1.0 (erratic) |
 | `--prompt` | `-p` | `"$ "` | Shell prompt string displayed before each command |
 | `--execute` | `-x` | off | Execute commands after typing them |

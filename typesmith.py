@@ -17,16 +17,16 @@ def type_text(text, speed=12, variance=0.4):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        delay = max(0.01, random.gauss(base_delay, base_delay * variance))
-        # Extra pause after word boundaries
+        delay = max(0.005, random.gauss(base_delay, base_delay * variance))
+        # Extra pause after word boundaries (scales with speed)
         if char == " ":
-            delay += random.uniform(0.02, 0.08)
+            delay += random.uniform(0.3, 1.0) * base_delay
         # Slightly longer after punctuation
         elif char in ".,;:!?":
-            delay += random.uniform(0.05, 0.15)
+            delay += random.uniform(0.5, 1.5) * base_delay
         # Occasional "think" pause (~2% chance)
         elif random.random() < 0.02:
-            delay += random.uniform(0.2, 0.5)
+            delay += random.uniform(2.0, 5.0) * base_delay
         time.sleep(delay)
 
 
