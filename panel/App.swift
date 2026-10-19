@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 final class PanelController: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScriptMessageHandler, WKNavigationDelegate {
     private var window: NSWindow!
     private var webView: WKWebView!
+    private var statusItem: NSStatusItem!
     private var dirty = false
     private var liveSpeed: LiveSpeedController!
     private let backendQueue = DispatchQueue(label: "dev.typesmith.backend")
@@ -16,6 +17,7 @@ final class PanelController: NSObject, NSApplicationDelegate, NSWindowDelegate, 
         NSApp.appearance = NSAppearance(named: .aqua)
         liveSpeed = LiveSpeedController()
         buildMenu()
+        buildStatusItem()
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(self, name: "typesmith")
         webView = WKWebView(frame: .zero, configuration: configuration)
@@ -57,6 +59,36 @@ final class PanelController: NSObject, NSApplicationDelegate, NSWindowDelegate, 
         alert.addButton(withTitle: "Keep editing")
         alert.addButton(withTitle: "Close")
         return alert.runModal() == .alertSecondButtonReturn
+    }
+
+    private func buildStatusItem() {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        if let image = NSImage(contentsOf: Bundle.main.resourceURL!.appendingPathComponent("MenuBarTemplate.png")) {
+            image.size = NSSize(width: 18, height: 18)
+            image.isTemplate = true
+            statusItem.button?.image = image
+        }
+        statusItem.button?.toolTip = "TypeSmith"
+        statusItem.button?.setAccessibilityLabel("TypeSmith")
+        let menu = NSMenu()
+        for (title, action) in [("Open TypeSmith", #selector(showPanel)), ("Live speed", #selector(showLiveSpeed))] {
+            let item = NSMenuItem(title: title, action: action, keyEquivalent: "")
+            item.target = self
+            menu.addItem(item)
+        }
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "Quit TypeSmith", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+        statusItem.menu = menu
+    }
+
+    @objc private func showPanel() {
+        NSApp.unhide(nil)
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    @objc private func showLiveSpeed() {
+        liveSpeed.show(on: window.screen)
     }
 
     private func buildMenu() {

@@ -27,9 +27,12 @@ final class LiveSpeedController: NSObject, NSWindowDelegate {
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         let content = NSView(frame: NSRect(x: 0, y: 0, width: 360, height: 142))
+        let logo = NSImageView(frame: NSRect(x: 16, y: 105, width: 24, height: 24))
+        logo.image = NSImage(contentsOf: Bundle.main.resourceURL!.appendingPathComponent("panel/logo.png"))
+        content.addSubview(logo)
         let title = NSTextField(labelWithString: "Live speed")
         title.font = .systemFont(ofSize: 13, weight: .semibold)
-        title.frame = NSRect(x: 18, y: 108, width: 120, height: 18)
+        title.frame = NSRect(x: 46, y: 108, width: 120, height: 18)
         valueLabel.font = .monospacedDigitSystemFont(ofSize: 12, weight: .medium)
         valueLabel.alignment = .right
         valueLabel.frame = NSRect(x: 200, y: 108, width: 140, height: 18)

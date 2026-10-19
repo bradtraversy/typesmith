@@ -15,6 +15,10 @@ def main():
     (CONTENTS / "MacOS").mkdir(parents=True, exist_ok=True)
     (RESOURCES / "python").mkdir(parents=True, exist_ok=True)
     (RESOURCES / "panel").mkdir(parents=True, exist_ok=True)
+    subprocess.run(["xcrun", "swift", str(ROOT / "panel/GenerateIcons.swift"), str(ROOT / "build")], check=True)
+    subprocess.run(["iconutil", "-c", "icns", str(ROOT / "build/TypeSmith.iconset"), "-o", str(RESOURCES / "TypeSmith.icns")], check=True)
+    shutil.copy2(ROOT / "build/logo.png", RESOURCES / "panel/logo.png")
+    shutil.copy2(ROOT / "build/MenuBarTemplate.png", RESOURCES / "MenuBarTemplate.png")
     for name in ("typesmith.py", "macos_hotkey.py", "project_store.py", "panel_backend.py", "live_speed.py"):
         shutil.copy2(ROOT / name, RESOURCES / "python" / name)
     for name in ("index.html", "style.css", "app.js"):
@@ -23,7 +27,7 @@ def main():
         plistlib.dump({"CFBundleName": "TypeSmith", "CFBundleDisplayName": "TypeSmith",
                       "CFBundleIdentifier": "dev.typesmith.panel", "CFBundleVersion": "1",
                       "CFBundleShortVersionString": "0.1.0", "CFBundleExecutable": "TypeSmith",
-                      "CFBundlePackageType": "APPL", "NSHighResolutionCapable": True,
+                      "CFBundlePackageType": "APPL", "CFBundleIconFile": "TypeSmith.icns", "NSHighResolutionCapable": True,
                       "LSMinimumSystemVersion": "13.0"}, output)
     subprocess.run(["xcrun", "swiftc", str(ROOT / "panel/App.swift"), str(ROOT / "panel/LiveSpeedPanel.swift"), "-o", str(CONTENTS / "MacOS/TypeSmith"),
                     "-framework", "Cocoa", "-framework", "WebKit"], check=True)
