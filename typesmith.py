@@ -11,23 +11,25 @@ import time
 import tty
 
 
+def typing_delay(char, speed=12, variance=0.4):
+    """Return the natural typing delay after one character."""
+    base_delay = 1.0 / speed
+    delay = max(0.005, random.gauss(base_delay, base_delay * variance))
+    if char == " ":
+        delay += random.uniform(0.3, 1.0) * base_delay
+    elif char in ".,;:!?":
+        delay += random.uniform(0.5, 1.5) * base_delay
+    elif random.random() < 0.02:
+        delay += random.uniform(2.0, 5.0) * base_delay
+    return delay
+
+
 def type_text(text, speed=12, variance=0.4):
     """Type text character by character with natural variable speed."""
-    base_delay = 1.0 / speed
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        delay = max(0.005, random.gauss(base_delay, base_delay * variance))
-        # Extra pause after word boundaries (scales with speed)
-        if char == " ":
-            delay += random.uniform(0.3, 1.0) * base_delay
-        # Slightly longer after punctuation
-        elif char in ".,;:!?":
-            delay += random.uniform(0.5, 1.5) * base_delay
-        # Occasional "think" pause (~2% chance)
-        elif random.random() < 0.02:
-            delay += random.uniform(2.0, 5.0) * base_delay
-        time.sleep(delay)
+        time.sleep(typing_delay(char, speed, variance))
 
 
 def get_single_key():
