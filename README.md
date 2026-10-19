@@ -40,6 +40,22 @@ typesmith run example.txt
 
 ## Usage
 
+### macOS Control Panel
+
+The local TypeSmith app edits an ordered recording sequence with command and code
+steps, individual speeds, save/load, active-step selection, and restart/resume
+controls. Hide the panel
+and use the global shortcut in your terminal or editor. See
+[Control panel](CONTROL-PANEL.md) for building and using the app.
+
+### macOS Keyboard Shortcut
+
+To type successive script lines into the focused text field in any app without displaying the
+TypeSmith interface, see [macOS typing shortcut](MACOS-HOTKEY.md). The shortcut
+reads the script on each trigger, types the next line, and leaves Return for you
+to press. Code-block mode preserves script whitespace and types the whole block;
+see the guide for editor settings.
+
 ### Interactive Mode
 
 ```bash

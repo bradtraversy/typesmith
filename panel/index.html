@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'">
+<title>TypeSmith</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="toolbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">T_</span><div><h1>TypeSmith</h1><span class="subtitle">Your recording desk</span></div></div>
+  <div class="toolbar-actions"><button id="liveSpeed">Show Live Speed</button><button id="open">Open</button><button id="saveCopy">Save copy</button><button id="save" class="primary" disabled>Save changes</button></div>
+</header>
+<div id="notice" class="notice" role="status" hidden></div>
+<main>
+  <aside class="sequence">
+    <div class="sequence-heading"><h2>Sequence</h2><span id="stepCount" class="count">0 steps</span></div>
+    <label class="recording-label" for="recordingName">Recording name</label>
+    <input id="recordingName" class="recording-name" maxlength="120" placeholder="Name this recording">
+    <div id="steps" class="steps" role="list" aria-label="Recording steps"></div>
+    <button id="add" class="add-step"><span aria-hidden="true">+</span> Add step</button>
+    <div class="sidebar-note"><span class="small-led"></span><p>Prepare here.<br>Perform in your own app.</p></div>
+  </aside>
+  <section class="workspace" aria-label="Step editor">
+    <div class="editor-heading"><div><span id="stepNumber" class="step-number">Step 1</span><h2 id="editorTitle">Loading recording</h2></div><span id="saveState" class="save-state">Saved locally</span></div>
+    <div class="step-settings">
+      <div class="field step-name-field"><label for="stepName">Step name</label><input id="stepName" maxlength="120"></div>
+      <div class="field"><label for="mode">Type</label><select id="mode"><option value="lines">Terminal command</option><option value="block">Code block</option></select></div>
+    </div>
+    <div class="stop-mode-row"><label for="stopMode">After Escape or Stop</label><select id="stopMode"><option value="restart">Restart from beginning</option><option value="resume">Resume where stopped</option></select></div>
+    <p id="stopHint" class="stop-hint"></p>
+    <div class="speed-row"><label for="speed">Typing speed</label><input id="speed" type="range" min="1" max="500" value="120"><input id="speedValue" type="number" min="1" max="500" value="120" aria-label="Typing speed in characters per second"><span class="unit">chars/sec</span></div>
+    <div class="source-shell"><div class="source-toolbar"><span id="sourceLabel">Command</span><span id="modeHint">You press Enter</span></div><div class="source-body"><div id="lineNumbers" class="line-numbers" aria-hidden="true">1</div><textarea id="source" aria-label="Step text" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" placeholder="Write what you want TypeSmith to type"></textarea></div><div class="source-footer"><span id="charCount">0 characters</span><span>Tabs and spaces are kept</span></div></div>
+    <p id="codeNote" class="code-note" hidden>Focus the editor buffer for this step. Turn off automatic indentation and bracket completion for literal code entry.</p>
+    <div class="step-actions"><div><button id="up" title="Move this step earlier">Move up</button><button id="down" title="Move this step later">Move down</button><button id="duplicate">Duplicate</button></div><button id="remove" class="quiet-danger">Remove step</button></div>
+  </section>
+</main>
+<footer class="transport">
+  <div class="playback-info"><span id="statusDot" class="status-dot"></span><div><div class="next-label" id="nextLabel">Ready for recording</div><strong id="nextStep">Loading</strong></div></div>
+  <div class="transport-actions"><button id="setNext">Activate selected</button><button id="reset">First step</button><button id="skip">Next step</button><button id="stop" class="stop">Stop</button></div>
+</footer>
+<div class="shortcut-bar"><span><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>T</kbd> Type active step <span class="shortcut-divider">/</span> <kbd>Esc</kbd> Stop</span><div class="recording-actions"><button id="hide">Hide for recording <span aria-hidden="true">↘</span></button></div></div>
+<dialog id="confirmDialog"><h2 id="confirmTitle">Discard unsaved changes?</h2><p id="confirmText">Save first if you want to keep your edits.</p><div class="dialog-actions"><button id="confirmCancel">Cancel</button><button id="confirmAccept" class="primary">Continue</button></div></dialog>
+</body>
+</html>
