@@ -48,6 +48,12 @@ The floating window accepts focus. Typing pauses while TypeSmith is focused;
 returning to the original editor resumes it. Switching to another app cancels
 the take. Escape or Stop cancels using the recording's selected stop mode.
 
+## App identity and menu bar
+
+The T_ mark appears in the Dock/Finder app icon, control panel, floating speed
+panel, and monochrome menu bar icon. The menu bar offers Open TypeSmith, Live
+speed, and Quit. The build generates these assets from `panel/GenerateIcons.swift`.
+
 ## Implementation
 
 The native app hosts a bundled offline interface. A restricted bridge sends
