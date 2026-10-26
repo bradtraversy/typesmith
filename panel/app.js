@@ -85,11 +85,7 @@ function renderList() {
       const badge = document.createElement('span'); badge.className = 'next-badge'; badge.textContent = savedState.typing ? 'Typing' : 'Active'; button.append(badge);
     }
     button.disabled = Boolean(savedState?.typing) || pendingAction;
-    button.onclick = () => {
-      // Unsaved edits may not validate yet, so only move the editor until they are saved.
-      if (dirty) { selected = index; renderList(); renderEditor(); }
-      else perform('setNext', {index});
-    };
+    button.onclick = () => activate(index);
     root.append(button);
   });
 }
@@ -102,7 +98,8 @@ function renderControls() {
   $('open').disabled = active || pendingAction;
   $('add').disabled = active || pendingAction;
   ['stopMode', 'stepName', 'mode', 'speed', 'speedValue', 'source', 'recordingName'].forEach(id => $(id).disabled = active || pendingAction || !draft);
-  ['reset', 'skip', 'setNext'].forEach(id => $(id).disabled = active || pendingAction || dirty || !draft);
+  ['reset', 'skip'].forEach(id => $(id).disabled = active || pendingAction || dirty || !draft);
+  $('setNext').disabled = active || pendingAction || !draft;
   $('up').disabled = active || pendingAction || selected === 0;
   $('down').disabled = active || pendingAction || selected === (draft?.steps.length || 0) - 1;
   $('remove').disabled = active || pendingAction || (draft?.steps.length || 0) < 2;
@@ -173,10 +170,18 @@ async function perform(action, extra = {}) {
   try {
     const result = await native(action, {path: savedState?.path, revision: savedState?.revision, ...extra});
     if (result?.cancelled) return;
-    if (result?.project) receiveState(result, true);
+    if (result?.project) receiveState(result, action !== 'setNext');
     if (action === 'save') notice('Saved. The active step repeats until you select another.');
   } catch (error) { notice(error.message, true); }
   finally { pendingAction = false; renderControls(); }
+}
+
+// Unsaved edits may not validate yet, so activate the step's saved version and keep the draft.
+function activate(index) {
+  selected = index; renderList(); renderEditor();
+  const savedIndex = savedState.project.steps.findIndex(step => step.id === draft.steps[index].id);
+  if (savedIndex < 0) notice('Save this new step before making it active.');
+  else perform('setNext', {index: savedIndex});
 }
 
 $('stopMode').onchange = event => { draft.stopMode = event.target.value; changed(); renderEditor(); };
@@ -221,7 +226,7 @@ $('open').onclick = async () => {
   if (dirty && !await confirmAction('Open another recording?', 'Unsaved edits will be discarded after you choose a recording.', 'Choose recording')) return;
   perform('open');
 };
-$('setNext').onclick = () => perform('setNext', {index: selected});
+$('setNext').onclick = () => activate(selected);
 $('reset').onclick = () => perform('reset');
 $('skip').onclick = () => perform('skip');
 $('stop').onclick = async () => {

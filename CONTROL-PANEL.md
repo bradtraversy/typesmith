@@ -16,9 +16,10 @@ See [Keyboard shortcut setup](MACOS-HOTKEY.md) for permissions and cancellation.
 ## Select and type
 
 Click a step to make it Active for hotkey. Each shortcut press repeats that step
-until you select another. With unsaved edits, clicking a step only opens it in the
-editor, and Save changes makes the selected step active. First step and Next step
-explicitly change the active selection.
+until you select another. With unsaved edits, the click still makes the step
+active, but the hotkey types its last saved version until you Save changes. A new
+step needs a save before it can be active. First step and Next step explicitly
+change the active selection.
 
 Edit the step name, type, source text, and speed, then Save changes. Command mode
 leaves Return to you. Code mode sends the complete block, including line breaks.
